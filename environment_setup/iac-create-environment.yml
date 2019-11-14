@@ -25,7 +25,7 @@ steps:
   inputs:
     azureSubscription: 'DspeResourceConnection'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: '$(BASE_NAME)-AML-RG'
+    resourceGroupName: 'sandbox-nl02328-024-rg'
     location: $(LOCATION)
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/environment_setup/arm-templates/cloud-environment.json'

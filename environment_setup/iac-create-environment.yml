@@ -17,13 +17,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- group: devopsforai-aml-vg
+- group: devopsforai-aml
 
 
 steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
-    azureSubscription: 'AzureResourceConnection'
+    azureSubscription: 'DspeResourceConnection'
     action: 'Create Or Update Resource Group'
     resourceGroupName: '$(BASE_NAME)-AML-RG'
     location: $(LOCATION)
@@ -31,6 +31,6 @@ steps:
     csmFile: '$(Build.SourcesDirectory)/environment_setup/arm-templates/cloud-environment.json'
     overrideParameters: '-baseName $(BASE_NAME) -location $(LOCATION)'
     deploymentMode: 'Incremental'
-  displayName: 'Deploy MLOps resources to Azure'
+  displayName: 'Deploy ABN-ca resources to Azure'
 
   

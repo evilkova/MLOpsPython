@@ -23,7 +23,7 @@ variables:
 steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
-    azureSubscription: 'AzureResourceConnection'
+    azureSubscription: 'DspeResourceConnection'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'sandbox-nl02328-023-rg'
     location: $(LOCATION)

@@ -17,13 +17,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- group: devopsforai-aml
+- group: devopsforai-aml-vg
 
 
 steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
-    azureSubscription: 'DspeResourceConnection'
+    azureSubscription: 'AzureResourceConnection'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'sandbox-nl02328-023-rg'
     location: $(LOCATION)

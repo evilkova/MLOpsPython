@@ -11,7 +11,7 @@ trigger:
     - ml_service/util/create_scoring_image.py
 
 variables:
-- group: devopsforai-aml-vg
+- group: devopsforai-aml
 # Choose from default, build_train_pipeline_with_r.py, or build_train_pipeline_with_r_on_dbricks.py
 - name: build-train-script
   value: 'build_train_pipeline.py'

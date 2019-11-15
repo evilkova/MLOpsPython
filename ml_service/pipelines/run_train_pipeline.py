@@ -4,6 +4,7 @@ from azureml.core import Workspace
 from azureml.core.authentication import ServicePrincipalAuthentication
 from dotenv import load_dotenv
 
+
 def main():
     load_dotenv()
     workspace_name = os.environ.get("BASE_NAME")+"-AML-WS"

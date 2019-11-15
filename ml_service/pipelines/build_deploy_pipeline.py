@@ -81,7 +81,7 @@ def main():
     print("Step Deploy created")
 
     steps = [deploy_step]
-    
+
     deploy_pipeline = Pipeline(workspace=aml_workspace, steps=steps)
     deploy_pipeline.validate()
     published_pipeline = deploy_pipeline.publish(

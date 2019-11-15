@@ -58,12 +58,15 @@ def main():
     model_name = PipelineParameter(
         name="model_name", default_value=model_name
     )
+    print(model_name)
     release_id = PipelineParameter(
         name="release_id", default_value="0"
     )
+    print(release_id)
     service_name = PipelineParameter(
         name="service_name", default_value=service_name
     )
+    print(service_name)
 
     deploy_step = PythonScriptStep(
         name="Deploy Model",

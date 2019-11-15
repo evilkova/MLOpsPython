@@ -55,6 +55,19 @@ stages:
       displayName: 'Trigger Training Pipeline'
       env:
         SP_APP_SECRET: '$(SP_APP_SECRET)'
+  - job: "Invoke_Deploy_Pipeline"
+    condition: and(succeeded(), eq(coalesce(variables['auto-trigger-training'], 'true'), 'true'))
+    displayName: "Invoke Deploy Pipeline"
+    pool: 
+      vmImage: 'ubuntu-latest'
+    container: mcr.microsoft.com/mlops/python:latest
+    timeoutInMinutes: 0
+    steps:
+    - script: |
+        python $(Build.SourcesDirectory)/ml_service/pipelines/run_deploy_pipeline.py
+      displayName: 'Trigger Deployment Pipeline'
+      env:
+        SP_APP_SECRET: '$(SP_APP_SECRET)'
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
       inputs:

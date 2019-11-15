@@ -20,13 +20,13 @@ def main():
     app_id = os.environ.get("SP_APP_ID")
     app_secret = os.environ.get("SP_APP_SECRET")
     deploy_script_path = os.environ.get("DEPLOY_SCRIPT_PATH")
-    evaluate_script_path = os.environ.get("EVALUATE_SCRIPT_PATH")
     vm_size = os.environ.get("AML_COMPUTE_CLUSTER_CPU_SKU")
     compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME")
     model_name = os.environ.get("MODEL_NAME")
     build_id = os.environ.get("BUILD_BUILDID")
     pipeline_name = os.environ.get("DEPLOY_PIPELINE_NAME")
-    service_name = os.environ.get('DEPLOY_SERVICE_NAME')
+    service_name = os.environ.get("DEPLOY_SERVICE_NAME")
+    sources_directory_train = os.environ.get("SOURCES_DIR_TRAIN")
 
     # Get Azure machine learning workspace
     aml_workspace = get_workspace(
@@ -48,7 +48,7 @@ def main():
 
     run_config = RunConfiguration(conda_dependencies=CondaDependencies.create(
         conda_packages=['numpy', 'pandas',
-                        'scikit-learn', 'tensorflow', 'keras'],
+                        'scikit-learn'],
         pip_packages=['azure', 'azureml-core',
                       'azure-storage',
                       'azure-storage-blob'])
@@ -56,24 +56,31 @@ def main():
     run_config.environment.docker.enabled = True
 
     model_name = PipelineParameter(
-        name="model_name", default_value=model_name)
+        name="model_name", default_value=model_name
+    )
     release_id = PipelineParameter(
         name="release_id", default_value="0"
+    )
+    service_name = PipelineParameter(
+        name="service_name", default_value=service_name
     )
 
     deploy_step = PythonScriptStep(
         name="Deploy Model",
         script_name=deploy_script_path,
         compute_target=aml_compute,
+        source_directory=sources_directory_train,
         arguments=[
             "--release_id", release_id,
             "--model_name", model_name,
+            "--service_name", service_name
         ],
         runconfig=run_config,
         allow_reuse=False,
     )
     print("Step Deploy created")
 
+    steps = [deploy_step]
     
     deploy_pipeline = Pipeline(workspace=aml_workspace, steps=steps)
     deploy_pipeline.validate()

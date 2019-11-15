@@ -62,6 +62,7 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         Contents: |
           code/scoring/**
+          ml_service/pipelines/**
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
       inputs:

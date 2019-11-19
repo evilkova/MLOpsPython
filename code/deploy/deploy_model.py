@@ -28,6 +28,10 @@ model_name = args.model_name
 release_id = args.release_id
 service_name = args.service_name
 
+print(model_name)
+print(release_id)
+print(service_name)
+
 # Get workspace
 run = Run.get_context()
 exp = run.experiment
@@ -38,6 +42,7 @@ inference_config = InferenceConfig(runtime="python",
                                    entry_script="score.py",
                                    conda_file="conda_dependencies.yml",
                                    source_directory="./deploy/scoring/")
+print(inference_config)
 
 # Do something with imagecnfig image_config = ContainerImage
 

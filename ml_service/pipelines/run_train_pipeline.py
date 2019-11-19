@@ -16,6 +16,7 @@ def main():
     app_id = os.environ.get('SP_APP_ID')
     app_secret = os.environ.get('SP_APP_SECRET')
     build_id = os.environ.get('BUILD_BUILDID')
+    pipeline_name = os.environ.get('TRAINING_PIPELINE_NAME')
 
     service_principal = ServicePrincipalAuthentication(
             tenant_id=tenant_id,
@@ -34,7 +35,7 @@ def main():
     matched_pipes = []
 
     for p in pipelines:
-        if p.version == build_id:
+        if p.version == build_id and p.name == pipeline_name:
             matched_pipes.append(p)
 
     if(len(matched_pipes) > 1):

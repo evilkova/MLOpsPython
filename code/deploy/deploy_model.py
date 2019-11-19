@@ -35,10 +35,9 @@ ws = run.experiment.workspace
 
 # Get workspace
 inference_config = InferenceConfig(runtime="python",
-                                   entry_script="./scoring/score.py",
-                                   conda_file="./scoring/"
-                                              "conda_dependencies.yml",
-                                   source_directory="./scoring/")
+                                   entry_script="score.py",
+                                   conda_file="conda_dependencies.yml",
+                                   source_directory="./deploy/scoring/")
 
 # Do something with imagecnfig image_config = ContainerImage
 

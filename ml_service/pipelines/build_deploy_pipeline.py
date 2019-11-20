@@ -46,12 +46,28 @@ def main():
     if aml_compute is not None:
         print(aml_compute)
 
-    run_config = RunConfiguration(conda_dependencies=CondaDependencies.create(
-        conda_packages=['numpy', 'pandas',
-                        'scikit-learn'],
-        pip_packages=['azure', 'azureml-core',
-                      'azure-storage',
-                      'azure-storage-blob'])
+    conda_dependencies = CondaDependencies.create(
+        conda_packages=[
+            'numpy',
+            'pandas',
+            'scikit-learn'
+        ],
+        pip_packages=[
+            'azureml-core==1.0.72.*',
+            'azureml-sdk==1.0.72.*',
+            'azure-storage',
+            'azure-storage-blob',
+            'azureml-dataprep',
+            'azureml-datadrift==1.0.72.*'
+        ],
+        pin_sdk_version=False
+    )
+
+    print(conda_dependencies.serialize_to_string())
+
+    run_config = RunConfiguration(
+        framework='Python',
+        conda_dependencies=conda_dependencies
     )
     run_config.environment.docker.enabled = True
 

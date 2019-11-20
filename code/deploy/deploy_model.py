@@ -67,6 +67,7 @@ service = Model.deploy(workspace=ws,
                        models=[model],
                        inference_config=inference_config,
                        deployment_config=deployment_config,
-                       deployment_target=None)
+                       deployment_target=None,
+                       overwrite=True)
 
 service.wait_for_deployment(show_output=True)

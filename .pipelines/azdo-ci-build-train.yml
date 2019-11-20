@@ -58,3 +58,4 @@ stages:
         publishLocation: 'container'
         pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
         TargetPath: '$(Build.ArtifactStagingDirectory)'
+

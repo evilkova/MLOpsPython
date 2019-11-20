@@ -49,7 +49,7 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         Contents: |
           code/deploy/**
-          code/trainig/**
+          code/training/**
           ml_service/pipelines/**
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'

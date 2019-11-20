@@ -35,6 +35,7 @@ import numpy as np
 
 
 parser = argparse.ArgumentParser("train")
+print(parser)
 parser.add_argument(
     "--release_id",
     type=str,

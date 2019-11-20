@@ -48,8 +48,7 @@ stages:
         SourceFolder: '$(Build.SourcesDirectory)'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         Contents: |
-          code/deploy/**
-          code/trainig/**
+          code/**
           ml_service/pipelines/**
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
@@ -58,3 +57,4 @@ stages:
         publishLocation: 'container'
         pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
         TargetPath: '$(Build.ArtifactStagingDirectory)'
+

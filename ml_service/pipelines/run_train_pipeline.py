@@ -15,6 +15,7 @@ def main():
     model_name = os.environ.get("MODEL_NAME")
     app_id = os.environ.get('SP_APP_ID')
     app_secret = os.environ.get('SP_APP_SECRET')
+    release_id = os.environ.get('RELEASE_RELEASEID')
     build_id = os.environ.get('BUILD_BUILDID')
     pipeline_name = os.environ.get('TRAINING_PIPELINE_NAME')
 

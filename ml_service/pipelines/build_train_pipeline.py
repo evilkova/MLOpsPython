@@ -117,7 +117,6 @@ def main():
     )
     print(f'Published pipeline: {published_pipeline.name}')
     print(f'for build {published_pipeline.version}')
-    print(f'with release id {release_id}')
 
 
 if __name__ == '__main__':

@@ -48,7 +48,8 @@ def main():
     else:
         published_pipeline = matched_pipes[0]
 
-    pipeline_parameters = {"model_name": model_name}
+    pipeline_parameters = {"model_name": model_name,
+                           "release_id": release_id}
 
     response = published_pipeline.submit(
         aml_workspace,

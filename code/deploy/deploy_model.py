@@ -70,4 +70,6 @@ service = Model.deploy(workspace=ws,
                        deployment_target=None,
                        overwrite=True)
 
+print(service.state)
+
 service.wait_for_deployment(show_output=True)

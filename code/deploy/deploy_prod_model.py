@@ -1,5 +1,6 @@
 from azureml.core.model import InferenceConfig
 from azureml.core.webservice import AksWebservice
+from azureml.core.compute import ComputeTarget
 from azureml.core import Run, Model
 import argparse
 
@@ -77,7 +78,8 @@ model = next(
 # cores and memory to handle this deployment configuration.
 # Note that memory is also used by
 # things such as dependencies and AML components.
-# aks_target = AksCompute(ws, "dspe-aks")
+aks_target = ComputeTarget._get(ws, "one-dspe-aks")
+print(aks_target)
 deployment_config = AksWebservice.deploy_configuration(cpu_cores=1,
                                                        memory_gb=4)
 service = Model.deploy(workspace=ws,
@@ -85,6 +87,6 @@ service = Model.deploy(workspace=ws,
                        models=[model],
                        inference_config=inference_config,
                        deployment_config=deployment_config,
-                       deployment_target="one-dspe-aks",
+                       deployment_target=aks_target,
                        overwrite=True)
 service.wait_for_deployment(show_output=True)

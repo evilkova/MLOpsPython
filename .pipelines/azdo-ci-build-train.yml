@@ -35,8 +35,10 @@ stages:
     - script: |
         # Invoke the Python building and publishing a training pipeline
         python3 $(Build.SourcesDirectory)/ml_service/pipelines/build_train_pipeline.py
-        # Invoke the Python building and publishing a deployment pipeline
+        # Invoke the Python building and publishing an ACI deployment pipeline
         python3 $(Build.SourcesDirectory)/ml_service/pipelines/build_deploy_pipeline.py
+        # Invoke the Python building and publishing an AKS deployment pipeline
+        python3 $(Build.SourcesDirectory)/ml_service/pipelines/build_deploy_prod_pipeline.py
       failOnStderr: 'false'
       env:
         SP_APP_SECRET: '$(SP_APP_SECRET)'

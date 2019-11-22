@@ -1,5 +1,5 @@
 from azureml.core.model import InferenceConfig
-from azureml.core.compute import AksCompute
+from azureml.core.compute import AksCompute, ComputeTarget
 from azureml.core.webservice import AksWebservice
 from azureml.core import Run, Model
 import argparse
@@ -58,7 +58,13 @@ model = next(
 )
 
 # to do: get config from file
-aks_target = AksCompute(ws, "dspe-aks")
+purpose = AksCompute.ClusterPurpose.DEV_TEST
+attach_config = AksCompute.attach_configuration(resource_group="sandbox-"
+                                                "nl02328-024-rg",
+                                                cluster_name="dspe-aks",
+                                                cluster_purpose=purpose)
+aks_target = ComputeTarget.attach(ws, "dspe-aks", attach_config)
+
 # If deploying to a cluster configured for dev/test,
 # ensure that it was created with enough
 # cores and memory to handle this deployment configuration.

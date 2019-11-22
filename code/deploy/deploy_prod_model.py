@@ -78,14 +78,14 @@ model = next(
 # cores and memory to handle this deployment configuration.
 # Note that memory is also used by
 # things such as dependencies and AML components.
-aks_target = AksCompute(ws, "dspe-aks")
+#aks_target = AksCompute(ws, "dspe-aks")
 deployment_config = AksWebservice.deploy_configuration(cpu_cores=1,
-                                                       memory_gb=1)
+                                                       memory_gb=4)
 service = Model.deploy(workspace=ws,
                        name=service_name,
                        models=[model],
                        inference_config=inference_config,
                        deployment_config=deployment_config,
-                       deployment_target=aks_target,
+                       deployment_target="one-dspe-aks",
                        overwrite=True)
 service.wait_for_deployment(show_output=True)

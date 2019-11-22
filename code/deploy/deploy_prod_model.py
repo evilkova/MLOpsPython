@@ -57,12 +57,20 @@ model = next(
     )
 )
 
+# reattaachemet AKS cluster
+compute_target = ComputeTarget(workspace=ws, name="dspe-aks")
+compute_target.detach()
+compute_target.wait_for_completion(show_output=True)
+print("AKS is detached")
+
 # to do: get config from file
 purpose = AksCompute.ClusterPurpose.DEV_TEST
 attach_config = AksCompute.attach_configuration(resource_group="sandbox-"
                                                 "nl02328-024-rg",
                                                 cluster_name="dspe-aks",
                                                 cluster_purpose=purpose)
+print(attach_config)
+print("dspe-aks is attached")
 aks_target = ComputeTarget.attach(ws, "dspe-aks", attach_config)
 
 # If deploying to a cluster configured for dev/test,

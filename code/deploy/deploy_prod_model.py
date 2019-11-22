@@ -1,5 +1,5 @@
 from azureml.core.model import InferenceConfig
-from azureml.core.compute import AksCompute, ComputeTarget
+from azureml.core.compute import AksCompute
 from azureml.core.webservice import AksWebservice
 from azureml.core import Run, Model
 import argparse
@@ -58,28 +58,29 @@ model = next(
 )
 
 # reattaachemet AKS cluster
-compute_target = ComputeTarget(workspace=ws, name="dspe-aks")
-compute_target.detach()
-compute_target.wait_for_completion(show_output=True)
-print("AKS is detached")
+# compute_target = ComputeTarget(workspace=ws, name="dspe-aks")
+# compute_target.detach()
+# compute_target.wait_for_completion(show_output=True)
+# print("AKS is detached")
 
 # to do: get config from file
-purpose = AksCompute.ClusterPurpose.DEV_TEST
-attach_config = AksCompute.attach_configuration(resource_group="sandbox-"
-                                                "nl02328-024-rg",
-                                                cluster_name="dspe-aks",
-                                                cluster_purpose=purpose)
-print(attach_config)
-print("dspe-aks is attached")
-aks_target = ComputeTarget.attach(ws, "dspe-aks", attach_config)
+# purpose = AksCompute.ClusterPurpose.DEV_TEST
+# attach_config = AksCompute.attach_configuration(resource_group="sandbox-"
+#                                                "nl02328-024-rg",
+#                                                cluster_name="dspe-aks",
+#                                                cluster_purpose=purpose)
+# print(attach_config)
+# print("dspe-aks is attached")
+# aks_target = ComputeTarget.attach(ws, "dspe-aks", attach_config)
 
 # If deploying to a cluster configured for dev/test,
 # ensure that it was created with enough
 # cores and memory to handle this deployment configuration.
 # Note that memory is also used by
 # things such as dependencies and AML components.
+aks_target = AksCompute(ws, "dspe-aks")
 deployment_config = AksWebservice.deploy_configuration(cpu_cores=1,
-                                                       memory_gb=4)
+                                                       memory_gb=1)
 service = Model.deploy(workspace=ws,
                        name=service_name,
                        models=[model],

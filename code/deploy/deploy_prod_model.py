@@ -1,6 +1,8 @@
 from azureml.core.model import InferenceConfig
 from azureml.core.webservice import AksWebservice
+from azureml.core.compute import ComputeTarget
 from azureml.core import Run, Model
+from azure.common.credentials import ServicePrincipalCredentials
 import argparse
 
 parser = argparse.ArgumentParser("deploy")
@@ -79,10 +81,28 @@ model = next(
 # things such as dependencies and AML components.
 # aks_target = AksCompute(ws, "one-dspe-aks")
 
-cts = ws.compute_targets
-print(cts)
-aks_name = 'one-dspe-aks'
-aks_target = cts[aks_name]
+# Tenant ID for your Azure subscription
+TENANT_ID = '3a15904d-3fd9-4256-a753-beb05cdf0c6d'
+
+# Your service principal App ID
+CLIENT = '21c8db4c-cbae-40a4-98ba-83d5414fb6bd'
+
+# Your service principal password
+KEY = '4X0--sUXdzvFcnfG5aAZIk8kZiwGT-y]'
+
+credentials = ServicePrincipalCredentials(
+    client_id=CLIENT,
+    secret=KEY,
+    tenant=TENANT_ID
+)
+
+# cts = ws.compute_targets
+# print(cts)
+# aks_name = 'one-dspe-aks'
+# aks_target = cts[aks_name]
+
+compute_target = ComputeTarget(workspace=ws, name="one-dspe-aks")
+print(compute_target)
 deployment_config = AksWebservice.deploy_configuration(cpu_cores=1,
                                                        memory_gb=4)
 service = Model.deploy(workspace=ws,
@@ -90,6 +110,6 @@ service = Model.deploy(workspace=ws,
                        models=[model],
                        inference_config=inference_config,
                        deployment_config=deployment_config,
-                       deployment_target=aks_target,
+                       deployment_target=compute_target,
                        overwrite=True)
 service.wait_for_deployment(show_output=True)

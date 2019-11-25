@@ -58,49 +58,6 @@ model = next(
     )
 )
 
-# reattaachemet AKS cluster
-# compute_target = ComputeTarget(workspace=ws, name="dspe-aks")
-# compute_target.detach()
-# compute_target.wait_for_completion(show_output=True)
-# print("AKS is detached")
-
-# to do: get config from file
-# purpose = AksCompute.ClusterPurpose.DEV_TEST
-# attach_config = AksCompute.attach_configuration(resource_group="sandbox-"
-#                                                "nl02328-024-rg",
-#                                                cluster_name="dspe-aks",
-#                                                cluster_purpose=purpose)
-# print(attach_config)
-# print("dspe-aks is attached")
-# aks_target = ComputeTarget.attach(ws, "dspe-aks", attach_config)
-
-# If deploying to a cluster configured for dev/test,
-# ensure that it was created with enough
-# cores and memory to handle this deployment configuration.
-# Note that memory is also used by
-# things such as dependencies and AML components.
-# aks_target = AksCompute(ws, "one-dspe-aks")
-
-# Tenant ID for your Azure subscription
-TENANT_ID = '3a15904d-3fd9-4256-a753-beb05cdf0c6d'
-
-# Your service principal App ID
-CLIENT = '21c8db4c-cbae-40a4-98ba-83d5414fb6bd'
-
-# Your service principal password
-KEY = '4X0--sUXdzvFcnfG5aAZIk8kZiwGT-y]'
-
-credentials = ServicePrincipalCredentials(
-    client_id=CLIENT,
-    secret=KEY,
-    tenant=TENANT_ID
-)
-
-# cts = ws.compute_targets
-# print(cts)
-# aks_name = 'one-dspe-aks'
-# aks_target = cts[aks_name]
-
 compute_target = ComputeTarget(workspace=ws, name="one-dspe-aks")
 print(compute_target)
 deployment_config = AksWebservice.deploy_configuration(cpu_cores=1,
